@@ -1,7 +1,6 @@
-
-
 var gulp = require('gulp');
 var browserSync = require('browser-sync');
+var karma = require('karma').server;
 
 gulp.task('server', function(){
 	browserSync.init({
@@ -19,7 +18,7 @@ gulp.task('server', function(){
 		.on('change', browserSync.reload);
 });
 
-gulp.task('test', function(){
+gulp.task('test-browser', function(){
 	browserSync.init({
 		notify: false,
 		port: 8081,
@@ -34,4 +33,12 @@ gulp.task('test', function(){
 
 	gulp.watch(['app/**/*.*', 'test/**/*.*'])
 		.on('change', browserSync.reload);
+});
+
+gulp.task('test', function(){
+	karma.start({
+		configFile: __dirname + '/karma.conf.js',
+		singleRun: false,
+		reporters: ['progress', 'jasmine-runner']
+	})
 });

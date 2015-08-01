@@ -11,6 +11,18 @@
   "devDependencies": {
     "browser-sync": "^2.8.2",
     "gulp": "^3.9.0",
+    "gulp-karma": "0.0.4",
+    "jasmine": "^2.3.1",
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.13.3",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-jasmine": "^0.3.6",
+    "karma-jasmine-html-reporter-livereload": "^1.0.0",
+    "karma-jasmine-runner-reporter": "^0.1.0",
+    "karma-phantomjs-launcher": "^0.2.0",
+    "phantomjs": "^1.9.17"
+  },
+  "dependencies": {
     "jasmine": "^2.3.1"
   }
 }
