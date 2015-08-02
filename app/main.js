@@ -1,1 +1,5 @@
-angular.module('Contactical', []);
+angular.module('Contactical', [])
+	.service('ContactService', function(){
+		var vm = this;
+		vm.contacts = [];
+	});
