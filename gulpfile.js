@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var browserSync = require('browser-sync');
+var browserSync = require('browser-sync').create();
 var karma = require('karma').server;
 var server = require('gulp-live-server');
 
@@ -37,7 +37,7 @@ gulp.task('test-browser', function(){
 		}
 	})
 
-	gulp.watch(['app/**/*.*', 'test/**/*.*'])
+	gulp.watch(['test/**/*.*', 'app/**/*.*'])
 		.on('change', browserSync.reload);
 });
 

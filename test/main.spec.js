@@ -1,9 +1,12 @@
 describe('Contactical', function() {
-	it('should work', function(){
-		expect(true).toBe(true);
-	})
-
-	it('should return false', function(){
-		expect(false).toBe(false);
-	})
+	describe('ContactService', function() {
+		var service;
+		beforeEach(function($injecttor){
+			module('Contactical');
+			service = $injector.get('ContactService');
+		})
+		it('should contain data in array', function(){
+			expect(true).toBe(true)
+		});
+	});
 });
