@@ -8,6 +8,9 @@ describe('Contactical', function() {
 			inject(function($injector){
 				service = $injector.get('ContactService');
 				$httpBackend = $injector.get('$httpBackend');
+				$httpBackend.expectGET('http://localhost:9001/contacts')
+					.respond(200, [{name:'Ball Weera Kasetsin'},{name:'Dean Salah'}]);
+				service.get();
 			});
 		})
 
@@ -15,32 +18,33 @@ describe('Contactical', function() {
 			expect(service.contacts).toEqual(jasmine.any(Array));
 		})
 
-		it('should call backend', function(){
-			$httpBackend.expectGET('http://localhost:9001/contacts')
-				.respond(200, []);
-
+		it('should call backend and return 2 contacts', function(){
 			$httpBackend.flush();
+			expect(service.contacts.length).toEqual(2);
 		})
 	});
 
 	describe('ListContacts', function() {
 		var $scope;
-		var contactService;
-		var $httpBackend;
+		var ContactService;
 		var $controller;
 
-		beforeEach(function(){
-			module('Contactical');
-			inject(function($injector, $rootScope){
-				$scope = $rootScope.$new();
-				contactService = $injector.get('ContactService');
-				$httpBackend = $injector.get('$httpBackend');
-				$controller = $injector.get('$controller');
-			});
+		beforeEach(module('Contactical'));
+
+		beforeEach(inject(function($injector, $rootScope, _$controller_){
+			$scope = $rootScope.$new();
+			ContactService = $injector.get('ContactService');
+			$controller = _$controller_;
+		}));
+		it('should call ContactService.get()', function(){
+			$controller('ListContacts', { $scope: $scope, ContactService: ContactService });
+			spy = spyOn(ContactService, 'get');
+			$scope.get();
+			expect(spy).toHaveBeenCalled();
 		});
 
 		it('should store an array of contacts in scope', function(){
-			$controller('ListContacts', { $scope: $scope, ContactService: contactService });
+			$controller('ListContacts', { $scope: $scope, ContactService: ContactService });
 			expect($scope.contacts).toEqual(jasmine.any(Array));
 		});
 	});
